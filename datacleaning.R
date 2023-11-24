@@ -41,8 +41,9 @@ date_tested = make_date(year = year, month = month),
 across(c(test_u5, test_ov5, conf_u5, conf_ov5),~as.integer(gsub("O",0,.))),
 test_total = test_u5+test_ov5,
 conf_total = conf_u5+conf_ov5) %>%
-  group_by(Admin1, date_tested)%>%
-  summarise(across(c(test_u5:conf_ov5,test_total,conf_total),sum))
+  group_by(Admin1, date_tested)%>% # specify cols to keep and do modification on the rest
+  summarise(across(c(test_u5:conf_ov5,test_total,conf_total),sum)) # aggregate 
+# all monthly data per admin1 
 
 write_csv(clean_routine_data, './clean_routine_data.csv') #save cleaned dataset
 
